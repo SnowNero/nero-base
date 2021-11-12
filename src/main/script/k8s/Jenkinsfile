@@ -1,0 +1,121 @@
+#!/usr/bin/env groovy
+def label = "pod-etl-config-build"
+
+podTemplate(label: label,yaml: """
+apiVersion: v1
+kind: Pod
+metadata:
+  name: etl-config-build
+  labels:
+    label: pod-etl-config-build
+  annotations:
+    sidecar.istio.io/inject: false
+spec:
+  volumes:
+  - name: harbor-password
+    secret:
+      secretName: harbor-info
+      items:
+      - key: password
+        path: password.txt
+        mode: 111
+  - name: jenkins-home
+    persistentVolumeClaim:
+      claimName: opspv
+  - hostPath:
+      path: /root/.m2/repository
+    name: maven-repository
+  - hostPath:
+      path: /var/run/docker.sock
+    name: docker-sock
+  - hostPath:
+      path: /root/.kube
+    name: kube-config
+  - hostPath:
+      path: /etc/docker/daemon.json
+    name: docker-daemon
+  hostAliases:
+  - hostnames:
+    - nexus.irs01.com
+    ip: 10.110.91.103
+  containers:
+  - name: maven
+    image: maven:3.6.0-jdk-8
+    command:
+    - cat
+    tty: true
+    volumeMounts:
+    - mountPath: /root/.m2/
+      name: jenkins-home
+  - name: docker
+    image: 10.110.91.244:8000/common/docker:1.39
+    command:
+    - cat
+    tty: true
+    env:
+    - name: HARBOR_USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: harbor-info
+          key: username
+    - name: HARBOR_REGISTRY_URL
+      valueFrom:
+        secretKeyRef:
+          name: harbor-info
+          key: registryUrl
+    volumeMounts:
+    - mountPath: /var/run/docker.sock
+      name: docker-sock
+    - mountPath: /etc/docker/daemon.json
+      name: docker-daemon
+    - name: harbor-password
+      mountPath: /harbor
+  - name: kubectl
+    image: lachlanevenson/k8s-kubectl
+    command:
+    - cat
+    tty: true
+    volumeMounts:
+    - mountPath: /root/.kube
+      name: kube-config
+"""
+) {
+
+    node(label) {
+        container('maven') {
+            stage('checkoutAndBuild') {
+                checkout scm
+                //checkout([$class: 'GitSCM', branches: [[name: 'origin/dev_local']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'gitlab-zhangbing', url: 'http://10.110.91.164:8888/ircloud/ircloud-onemedia.git']]])
+                sh 'pwd'
+                sh 'mvn clean package -Dmaven.test.skip=true -P test'
+            }
+        }
+        container('docker') {
+            stage('docker-login') {
+                //REGISTRY_URL私有仓库地址，也可使用官方地址：docker.io
+                sh 'cat /harbor/password.txt | docker login $HARBOR_REGISTRY_URL --username $HARBOR_USERNAME --password-stdin'
+            }
+
+            stage('docker-build') {
+                sh 'docker build . -t $HARBOR_REGISTRY_URL/ircloud/etl-config-dev'
+            }
+
+            stage('docker-push') {
+                sh 'docker push $HARBOR_REGISTRY_URL/ircloud/etl-config-dev'
+            }
+
+            stage('docker-remove') {
+                sh 'docker rmi $HARBOR_REGISTRY_URL/ircloud/etl-config-dev'
+            }
+        }
+
+        container('kubectl') {
+            stage('k8s deploy') {
+                sh "kubectl --kubeconfig=/root/.kube/config apply -f deploy/test/deploy-svc.yaml"
+                sh "kubectl --kubeconfig=/root/.kube/config replace --force -f deploy/test/deploy-app.yaml"
+            }
+        }
+    }
+}
+
+// vim: ft=groovy

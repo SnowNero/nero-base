@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: etl-config-svc
+  labels:
+    name: etl-config-svc
+  namespace: prod
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: etl-config
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: etl-config-ingress
+  namespace: prod
+spec:
+  rules:
+  - host: etl.iresearch.loc
+    http:
+      paths:
+      - backend:
+          serviceName: etl-config-svc
+          servicePort: 80
+        path: /
+status:
+  loadBalancer: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ircloud-redis-svc
+  labels:
+    name: ircloud-redis-svc
+  namespace: dev
+spec:
+  ports:
+  - port: 6379
+    protocol: TCP
+    name: ircloud-redis-svc-tcp
+    targetPort: 6379
+  selector:
+    app: ircloud-redis
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ircloud-redis
+  namespace: prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ircloud-redis
+  template:
+    metadata:
+      labels:
+        app: ircloud-redis
+    spec:
+      containers:
+      - name: ircloud-redis
+        image: 10.110.91.244:8000/common/redis:latest
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 6379
+      initContainers:
+      - name: init-ircloud-redis
+        imagePullPolicy: Always
+        securityContext:
+          privileged: true
+        image: 10.110.91.244:8000/common/redis:latest
+        command: ['sh', '-c', 'echo 10000 > /proc/sys/net/core/somaxconn']
+      imagePullSecrets:
+      - name: ircloud-harbor-secret

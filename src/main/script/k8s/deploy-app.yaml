@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: etl-config
+  namespace: prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: etl-config
+  template:
+    metadata:
+      labels:
+        app: etl-config
+    spec:
+      containers:
+      - name: etl-config
+        image: 10.110.91.244:8000/ircloud/etl-config-dev
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        env:
+        - name: JAVA_OPTS
+          value: -Djava.awt.headless=true -Duser.timezone=GMT+08 -Dfile.encoding=UTF-8 -Xms512m -Xmx1024m
+      imagePullSecrets:
+      - name: ircloud-harbor-secret
