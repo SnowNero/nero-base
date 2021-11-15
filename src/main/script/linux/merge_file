@@ -1,0 +1,13 @@
+1.首先把所有包里面的文件合并成一个文件,利用如下命令:
+find [filePath] -name '*.java' -print0 |xargs -0 cat >> /path/1.java  
+2.然后去除里面的注释:
+grep -v '//' /tmp/1.java | grep -v '*' |grep -v '@' |grep -v '^$' > /tmp/6.java
+然后就可以把6.java文件复制到文档里面了
+find '/Users/nero/Documents/test/code/web' -name '*.java' -print0 |xargs -0 cat >> '/Users/nero/Documents/test/code/sum.java'
+grep -v '//' '/Users/nero/Documents/test/code/sum.java' | grep -v '*' |grep -v '@' |grep -v '^$' > '/Users/nero/Documents/test/code/sum_filter.java'
+
+find '/Users/nero/Documents/test/code/spas_api/src/main/java' -name '*.java' -print0 |xargs -0 cat >> /Users/nero/Documents/test/code/daas.java
+grep -v '//' /Users/nero/Documents/test/code/daas.java | grep -v '*' |grep -v '@' |grep -v '^$' > /Users/nero/Documents/test/code/daas_filter.java
+
+find '/Users/nero/Documents/test/code/dop/src/main/java' -name '*.java' -print0 |xargs -0 cat >> /Users/nero/Documents/test/code/dop.java
+grep -v '//' /Users/nero/Documents/test/code/dop.java | grep -v '*' |grep -v '@' |grep -v '^$' > /Users/nero/Documents/test/code/dop_filter.java
