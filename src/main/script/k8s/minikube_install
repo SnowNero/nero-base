@@ -1,0 +1,28 @@
+--minikube安装
+https://minikube.sigs.k8s.io/docs/start/
+
+--部分报错解决方案
+
+--Mac 解决brew一直卡在Updating Homebrew
+--切换清华大学brew镜像
+https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/
+# 或使用下面的几行命令自动设置
+export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
+for tap in core cask{,-fonts,-drivers,-versions} command-not-found; do
+    brew tap --custom-remote --force-auto-update "homebrew/${tap}" "https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-${tap}.git"
+done
+brew update
+
+--Warning: No available formula or cask with the name "ca-certificates".
+进入homebrew，重新安装 homebrew-core
+cd /usr/local/Homebrew/Library/Taps/homebrew/
+rm -rf homebrew-core
+git clone https://github.com/Homebrew/homebrew-core.git
+brew update
+
+--Git发生SSL certificate problem解决方法
+git config --global http.sslVerify false
+
+--mac homebrew-cask is a shallow clone
+git -C "/usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask" fetch --unshallow
+brew update
