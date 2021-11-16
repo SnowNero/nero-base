@@ -1,0 +1,3 @@
+--查看docker根目录
+NEROWYFdeMacBook-Pro:opt nero$ docker info | grep Root
+ Docker Root Dir: /var/lib/docker
