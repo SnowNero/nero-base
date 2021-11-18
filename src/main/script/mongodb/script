@@ -1,0 +1,6 @@
+--导入数据
+https://blog.csdn.net/lwc5411117/article/details/79675326
+linux:
+mongorestore -d <db_name> <bson_folder>
+windows
+mongorestore.exe -d <db_name> <bson_folder>
