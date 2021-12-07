@@ -1,0 +1,12 @@
+AWSJavaSDK
+https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/allclasses-noframe.html
+
+ClientConfiguration
+https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/ClientConfiguration.html
+
+AmazonS3
+https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/s3/AmazonS3.html
+
+AmazonS3Client
+https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/s3/AmazonS3Client.html
+
