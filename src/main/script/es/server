@@ -1,0 +1,4 @@
+--重启es
+cd /data/software/elasticsearch-6.3.1/bin
+su esuser
+sh elasticsearch -d

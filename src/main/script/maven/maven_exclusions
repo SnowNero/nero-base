@@ -1,0 +1,13 @@
+https://www.cnblogs.com/xiaostudy/p/11904034.html
+
+<dependency>
+    <groupId>org.activiti</groupId>
+    <artifactId>activiti-engine</artifactId>
+    <version>${activiti.version}</version>
+    <exclusions>
+        <exclusion>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>

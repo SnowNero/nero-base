@@ -1,0 +1,8 @@
+--mac
+curl ifconfig.me
+
+--linux
+curl ifconfig.io
+
+--windows
+ipconfig

@@ -1,0 +1,52 @@
+touch ~/.vimrc
+
+# cat etl-pv.yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  labels:
+    app: nfs_etl
+  name: nfsetl-pv
+spec:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 10Gi
+  claimRef:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    name: nfsetl-pvc
+    namespace: qa
+  nfs:
+    path: /data/disk1/nfs/k8s_dev/etl
+    server: 10.110.15.23
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: nfs-dynamic-class
+  volumeMode: Filesystem
+status:
+  phase: Bound
+
+# cat etl-pvc.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfsetl-pvc
+  namespace: qa
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  selector:
+    matchLabels:
+      app: nfs_etl
+  storageClassName: nfs-dynamic-class
+  volumeMode: Filesystem
+  volumeName: nfsetl-pv
+status:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 10Gi
+  phase: Bound

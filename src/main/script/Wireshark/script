@@ -1,0 +1,60 @@
+抓包
+
+1、Wireshark安装
+Windows 64位（公司电脑）安装包：Wireshark-win64-3.2.4.exe
+
+Windows 32位：   Wireshark-win32-3.2.4.exe
+
+2、 Wireshark配置
+1）、电脑打开热点
+
+2）、打开wireshark
+
+捕获>>选项，选择对应网络
+
+
+
+3）、手机连接热点，开始抓包-选择ip地址和PC端无线网络相同的wlan
+
+
+
+Wireshark抓包界面
+
+
+
+3、Wireshark Tips
+a、wireshark需要以管理员身份运行；
+
+b、时间格式调整：view->Time Display Format
+
+c、显示url完整路径：在某个url上右击，选择菜单“应用到列”
+
+d、使用statistics-http-requests可以看到请求url的分布
+
+e、常用过滤语句
+
+http
+
+过滤http请求
+
+http.request.uri contains "mp4“
+
+过滤链接包含关键词的请求
+
+http.request.uri != ""
+
+过滤非空链接
+
+在筛选时，可能出现不是自己IP地址的source来源，可以用过对应的滤语句滤掉。
+
+ip.addr ==xxxxxxx//显示所有目标或源地址是xxxxxxx的数据包
+ip.dst== xxxxxxx //显示目标地址是xxxxxxx的数据包
+ip.src ==xxxxxxx //显示源地址是xxxxxxx的数据包
+
+f. 关于iOS系统抓包
+
+管理员身份打开Wireshark
+打开电脑终端输入sudo open -a "Wireshark"
+
+打开电脑热点
+Mac原则时在使用Wi-Fi网络时不能发送Wi-Fi，但是可以选择其他搭配方式。例如网线—Wi-Fi、USB—Wi-Fi、蓝牙—Wi-Fi……

@@ -1,0 +1,32 @@
+1.安装 wget 命令:
+yum -y install wget
+
+2.下载maven安装包
+wget http://mirrors.cnnic.cn/apache/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz
+
+3.解压maven安装包
+tar -zxvf apache-maven-3.5.4-bin.tar.gz
+
+4.配置maven： vim /etc/profile
+在配置文件配置中加上：
+export MAVEN_HOME=/opt/apache-maven-3.5.4 （这个目录换成你的 maven 解压后的文件所在目录） export PATH=$MAVEN_HOME/bin:$PATH
+让文件生效，刷新配置文件 ：
+source /etc/profile
+
+5.查看maven 版本：
+mvn -version
+# 或者
+mvn -v
+
+
+
+
+Detected both log4j-over-slf4j.jar AND bound slf4j-log4j12.jar on the class path
+<exclusion>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-log4j12</artifactId>
+</exclusion>
+<exclusion>
+    <groupId>log4j</groupId>
+    <artifactId>log4j</artifactId>
+</exclusion>
