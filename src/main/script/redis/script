@@ -1,0 +1,40 @@
+一、问题
+在 centOS7环境下安装redis-5.0.4时在编译阶段遇到了致命错误：jemalloc/jemalloc.h：没有那个文件或目录。
+
+二、原因分析
+在Redis的README.md有如下一段话：
+
+Allocator
+Selecting a non-default memory allocator when building Redis is done by setting
+the MALLOC environment variable. Redis is compiled and linked against libc
+malloc by default, with the exception of jemalloc being the default on Linux
+systems. This default was picked because jemalloc has proven to have fewer
+fragmentation problems than libc malloc.
+
+To force compiling against libc malloc, use:
+
+% make MALLOC=libc
+
+To compile against jemalloc on Mac OS X systems, use:
+
+% make MALLOC=jemalloc
+
+说关于分配器allocator， 如果有MALLOC 这个环境变量,会有用这个环境变量的 去建立Redis。而且libc 并不是默认 的分配器，默认的是 jemalloc, 因为jemalloc被证明比libc有更少的fragmentation problems。但是如果你又没有jemalloc 而只有libc 当然 make 出错。 所以加这么一个参数。
+
+三、解决方法
+1、make 时指定分配器为libc
+make MALLOC=libc
+2、安装jemalloc分配器
+1. 安装jemalloc
+wget https://github.com/jemalloc/jemalloc/releases/download/5.0.1/jemalloc-5.0.1.tar.bz2
+tar -jxvf jemalloc-5.0.1.tar.bz2
+cd jemalloc-5.0.1
+yum install autogen autoconf
+
+./autogen.sh
+make -j2
+make install
+ldconfig
+cd ../
+rm -rf jemalloc-5.0.1 jemalloc-5.0.1.tar.bz2
+2. 重新编译
