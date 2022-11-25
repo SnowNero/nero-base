@@ -1,0 +1,7 @@
+https://blog.csdn.net/weixin_42684880/article/details/108980836
+Please make sure you have the correct access rights and the repository exists.
+
+cd ~/.ssh
+ssh-keygen -t rsa -C 'your@qq.com'
+Generating public/private rsa key pair.
+cat ~/.ssh/id_rsa.pub
