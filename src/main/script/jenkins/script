@@ -1,0 +1,25 @@
+Jenkins备份
+Skip to end of metadata
+项目备份
+Jenkins 所有项目在$JENKINS_HOME/jobs 目录下 , 只要目录备份即可
+
+
+
+凭证备份
+$JENKINS_HOME/credentials.xml
+
+$JENKINS_HOME/secrets/master.key
+
+$JENKINS_HOME/secrets/hudson.util.Secret
+
+
+
+所有恢复的时候,需要注意权限, 按照之前的目录设置权限
+
+chown -R --reference=credentials_bak.xml credentials.xml
+
+
+
+修改完之后,由于登入密码加密问题
+
+$JENKINS_HOME/config.xml 后，把字段 useSecurity 的值设置为 false，然后重新启动 Jenkins。你就会发现不需要登陆也能进入管理页面。
