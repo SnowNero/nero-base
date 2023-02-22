@@ -5,3 +5,17 @@ cd ~/.ssh
 ssh-keygen -t rsa -C 'your@qq.com'
 Generating public/private rsa key pair.
 cat ~/.ssh/id_rsa.pub
+
+
+--mac配置git ssh
+--生成ssh公钥 私钥
+ssh-keygen -t ed25519 -C "your_email@example.com"
+--打开ssh配置
+open ~/.ssh/config
+--配置ssh配置
+Host github.com
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/私钥filename
+--ssh生效
+ssh-add --apple-use-keychain ~/.ssh/私钥filename
