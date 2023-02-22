@@ -1,0 +1,26 @@
+kubectl常用删除命令
+
+1、强制删除 pvc
+kubectl patch pvc pvc-name -p '{"metadata":{"finalizers":null}}' -n namespace
+2、强制删除 pod
+kubectl delete pod PODNAME --force --grace-period=0 -n namespace
+3、强制删除 namespace
+kubectl delete namespace NAMESPACENAME --force --grace-period=0   -n namespace
+
+
+如上述命令无效，可以尝试以下方法：
+1)运行以下命令以查看处于“Terminating”状态的namespace：
+kubectl get ns
+2)选择一个Terminating namespace，并查看namespace 中的finalizer。运行以下命令：
+kubectl get ns namespace -o yaml
+3)导出json格式到文件
+kubectl get ns namespace -o json > namespace.json
+4)编辑namespace.josn，删除finalizers 字段的值
+5)开启proxy
+kubectl proxy
+执行该命令后，当前终端会被卡住
+6)打开新的终端，运行以下命令
+curl -k -H "Content-Type:application/json" -X PUT --data-binary @namespace.json http://127.0.0.1:8001/api/v1/namespces/namespace/finalize
+7)确认处于Terminating 状态的namespace已经被删除
+如果还有处于Terminating 状态的namespace，重复以上步骤可删除。
+
