@@ -38,6 +38,9 @@ spec:
   - hostnames:
     - xxx.xxx.com
     ip: xxx.xxx.xxx.xxx
+  - hostnames:
+    - xxx.xxx.com
+    ip: xxx.xxx.xxx.xxx
   containers:
   - name: maven
     image: 10.110.91.244:8000/common/maven:3.6.0-jdk-8
@@ -173,6 +176,13 @@ metadata:
   namespace: prod
 spec:
   rules:
+  - host: xxx.xxx.cn
+    http:
+      paths:
+      - backend:
+          serviceName: ircloud-media-api-v2-svc
+          servicePort: 8080
+        path: /ircloud-media-api
   - host: xxx.xxx.cn
     http:
       paths:
