@@ -1,0 +1,33 @@
+
+--更新pip
+pip3 install --upgrade pip
+python -m pip install --upgrade pip
+
+--镜像读取失败
+国内镜像使用方法：将网址内的github.com统一替换成kgithub.com
+
+
+--MacBook
+Apple开发_missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun 的解决
+1、原因：Mac系统升级。
+2、命令行输入
+xcode-select --install
+
+--安装torch
+pip3 install torch
+pip3 install torch==1.10.0+cu113 torchvision==0.11.1+cu113 torchaudio===0.10.0+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html -i https://pypi.tuna.tsinghua.edu.cn/simple
+conda install pytorch=0.4.1 -c pytorch
+
+--git相关报错
+error: RPC failed; curl 92 HTTP/2 stream 0 was not closed cleanly: PROTOCOL_ERROR (err 1)
+git 提交报错 error: RPC failed; curl 92 HTTP/2 stream 0 was not closed cleanly: PROTOCOL_ERROR (err 1)
+起因：自己顶不住好奇心，升级了Mac系统。界面看起来，真香！然鹅用起来其实也挺香，就是有些开发常用的竟然挂掉了，挂掉了。
+搜罗一大堆最终指向这是http2本身的bug。
+解决方式
+1.(推荐)直接换掉Git的http版本
+git config --global http.version HTTP/1.1
+2.更改Git的http克隆为ssh，使用ssh进行提交和拉取代码
+
+error: RPC failed； HTTP 502 curl 22 The requested URL returned error: 502 Proxy Error fatal:
+如果出现了缓存溢出的情况,如果还是报缓存溢出的问题的话，可以将这个参数调的更大，它的单位是Byte
+git config --global http.postBuffer 1024000000
