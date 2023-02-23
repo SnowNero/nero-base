@@ -8,9 +8,6 @@ package com.nero.utils;
  * Time: 11:04
  */
 
-import com.sun.imageio.plugins.common.ImageUtil;
-import org.apache.commons.io.FileUtils;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -63,14 +60,6 @@ public class ImageUtils {
         g.dispose();
         ImageIO.write(tag, "JPG", out);
     }
-
-    public static void main(String[] args) {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        out = new ByteArrayOutputStream();
-        //jpg
-        ImageIO.write(image, "jpg", out);
-    }
-
 
 }
 

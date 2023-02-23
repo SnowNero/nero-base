@@ -1,0 +1,48 @@
+kubectl get pvc -n demon
+kubectl get pv -n demon
+
+注意：此处一定注意RECLAIM POLICY状态，Retain为删除pv后配置文件保留，其他则会丢失数据（最好都备份下）
+
+删除原来的pvc
+kubectl delete pvc opspvc -n demon
+强制删除 pvc
+kubectl patch pvc opspvc -p '{"metadata":{"finalizers":null}}' -n demon
+删除原来的pv
+kubectl delete pv opspv -n demon
+
+修改pv配置文件中的名字
+[root@k8s-5-58 jenkins]# cat jenkins_pv.yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+name: opspv
+spec:
+capacity:
+storage: 50Gi
+accessModes:
+- ReadWriteMany
+persistentVolumeReclaimPolicy: Retain
+nfs:
+server: xxx.xxx.xxx.xxx
+path: /data/jenkins
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+name: opspvc
+namespace: demon
+spec:
+accessModes:
+- ReadWriteMany
+resources:
+requests:
+storage: 50Gi
+
+重新apply
+[root@k8s-5-58 jenkins]# kubectl apply -f jenkins_pv.yaml -n demon
+persistentvolume/opspv created
+persistentvolumeclaim/opspvc unchanged
+
+最后修改jenkins的deploy中的pvc名字
+[root@k8s-5-58 jenkins]# kubectl edit deploy jenkins -n demon
+deployment.apps/jenkins edited
