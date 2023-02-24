@@ -130,12 +130,12 @@ public class AesUtil {
 
 
     public static void main(String[] args) throws Exception {
-        /*String a = "OBg1munnLYO2EkEb";
-        String b = encrypt(a);
-        String c = decrypt(b);
+        String a = "OBg1munnLYO2EkEb";
+        String b = encryptOld(a);
+        String c = decryptOld(b);
         System.out.println(a);
         System.out.println(b);
-        System.out.println(c);*/
+        System.out.println(c);
         System.out.println();
         String aa = "OBg1munnLYO2EkEb";
         String bb = encrypt(aa);
