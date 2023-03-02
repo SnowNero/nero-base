@@ -1,0 +1,3 @@
+报错: error checking context: ‘can‘t stat ‘xxxx.Trash’‘
+解决:不在根目录下执行命令
+
