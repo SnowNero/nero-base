@@ -1,0 +1,6 @@
+--拉取镜像
+docker pull ubuntu
+--删除镜像
+docker rmi [demoImage]
+
+

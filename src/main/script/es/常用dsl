@@ -1,0 +1,42 @@
+--压缩，释放空间
+POST [index_name]/_forcemerge
+--删除全部索引
+POST [index_name]/_delete_by_query
+{
+  "query": {
+    "match_all": {}
+  }
+}
+--根据条件查询
+POST [index_name]/_search
+{
+  "from": 0,
+  "size": 10,
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "term": {
+            "date_type": {
+              "value": "[date_type]"
+            }
+          }
+        },{
+          "terms": {
+            "age_range": [
+              2246
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "sort": [
+    {
+      "date_id": {
+        "order": "desc"
+      }
+    }
+  ]
+}
+--
