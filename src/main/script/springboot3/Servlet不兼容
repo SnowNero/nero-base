@@ -1,0 +1,59 @@
+org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+        at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:181) ~[spring-context-6.0.6.jar!/:6.0.6]
+        at org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup.start(DefaultLifecycleProcessor.java:356) ~[spring-context-6.0.6.jar!/:6.0.6]
+        at java.base/java.lang.Iterable.forEach(Iterable.java:75) ~[na:na]
+        at org.springframework.context.support.DefaultLifecycleProcessor.startBeans(DefaultLifecycleProcessor.java:155) ~[spring-context-6.0.6.jar!/:6.0.6]
+        at org.springframework.context.support.DefaultLifecycleProcessor.onRefresh(DefaultLifecycleProcessor.java:123) ~[spring-context-6.0.6.jar!/:6.0.6]
+        at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:934) ~[spring-context-6.0.6.jar!/:6.0.6]
+        at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:587) ~[spring-context-6.0.6.jar!/:6.0.6]
+        at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.0.4.jar!/:3.0.4]
+        at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:732) ~[spring-boot-3.0.4.jar!/:3.0.4]
+        at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:434) ~[spring-boot-3.0.4.jar!/:3.0.4]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:310) ~[spring-boot-3.0.4.jar!/:3.0.4]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:1304) ~[spring-boot-3.0.4.jar!/:3.0.4]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:1293) ~[spring-boot-3.0.4.jar!/:3.0.4]
+        at com.iresearch.idaas.IdaasApplication.main(IdaasApplication.java:15) ~[classes!/:1.0.0]
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+        at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+        at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+        at org.springframework.boot.loader.MainMethodRunner.run(MainMethodRunner.java:49) ~[idaas-api-v2.jar:1.0.0]
+        at org.springframework.boot.loader.Launcher.launch(Launcher.java:95) ~[idaas-api-v2.jar:1.0.0]
+        at org.springframework.boot.loader.Launcher.launch(Launcher.java:58) ~[idaas-api-v2.jar:1.0.0]
+        at org.springframework.boot.loader.JarLauncher.main(JarLauncher.java:65) ~[idaas-api-v2.jar:1.0.0]
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat server
+        at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:229) ~[spring-boot-3.0.4.jar!/:3.0.4]
+        at org.springframework.boot.web.servlet.context.WebServerStartStopLifecycle.start(WebServerStartStopLifecycle.java:44) ~[spring-boot-3.0.4.jar!/:3.0.4]
+        at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:178) ~[spring-context-6.0.6.jar!/:6.0.6]
+        ... 21 common frames omitted
+Caused by: org.springframework.boot.web.server.WebServerException: Servlet [jsp] in web application [/idaas-api-v2] threw load() exception
+        at org.springframework.boot.web.embedded.tomcat.TomcatEmbeddedContext.load(TomcatEmbeddedContext.java:89) ~[spring-boot-3.0.4.jar!/:3.0.4]
+        at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183) ~[na:na]
+        at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625) ~[na:na]
+        at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:762) ~[na:na]
+        at java.base/java.util.stream.ReferencePipeline$7$1.accept(ReferencePipeline.java:276) ~[na:na]
+        at java.base/java.util.TreeMap$ValueSpliterator.forEachRemaining(TreeMap.java:3215) ~[na:na]
+        at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) ~[na:na]
+        at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[na:na]
+        at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150) ~[na:na]
+        at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173) ~[na:na]
+        at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234) ~[na:na]
+        at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596) ~[na:na]
+        at org.springframework.boot.web.embedded.tomcat.TomcatEmbeddedContext.lambda$deferredLoadOnStartup$0(TomcatEmbeddedContext.java:67) ~[spring-boot-3.0.4.jar!/:3.0.4]
+        at org.springframework.boot.web.embedded.tomcat.TomcatEmbeddedContext.doWithThreadContextClassLoader(TomcatEmbeddedContext.java:108) ~[spring-boot-3.0.4.jar!/:3.0.4]
+        at org.springframework.boot.web.embedded.tomcat.TomcatEmbeddedContext.deferredLoadOnStartup(TomcatEmbeddedContext.java:66) ~[spring-boot-3.0.4.jar!/:3.0.4]
+        at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.performDeferredLoadOnStartup(TomcatWebServer.java:305) ~[spring-boot-3.0.4.jar!/:3.0.4]
+        at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:216) ~[spring-boot-3.0.4.jar!/:3.0.4]
+        ... 23 common frames omitted
+Caused by: jakarta.servlet.ServletException: Class [org.apache.jasper.servlet.JspServlet] is not a Servlet
+        at org.apache.catalina.core.StandardWrapper.loadServlet(StandardWrapper.java:910) ~[tomcat-embed-core-10.1.5.jar!/:na]
+        at org.apache.catalina.core.StandardWrapper.load(StandardWrapper.java:844) ~[tomcat-embed-core-10.1.5.jar!/:na]
+        at org.springframework.boot.web.embedded.tomcat.TomcatEmbeddedContext.load(TomcatEmbeddedContext.java:84) ~[spring-boot-3.0.4.jar!/:3.0.4]
+        ... 39 common frames omitted
+Caused by: java.lang.ClassCastException: class org.apache.jasper.servlet.JspServlet cannot be cast to class jakarta.servlet.Servlet (org.apache.jasper.servlet.JspServlet and jakarta.servlet.Servlet are in unnamed module of loader org.springframework.boot.loader.LaunchedURLClassLoader @306a30c7)
+        at org.apache.catalina.core.StandardWrapper.loadServlet(StandardWrapper.java:905) ~[tomcat-embed-core-10.1.5.jar!/:na]
+        ... 41 common frames omitted
+
+
+报错如hive-jdbc包
+Servlet包与SpringBoot3+JDK17不兼容

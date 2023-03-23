@@ -1,0 +1,19 @@
+springfox暂不支持SpringBoot3
+建议使用SpringDoc
+
+
+Mixed Content: The page at 'https://' was loaded over HTTPS,
+but requested an insecure resource 'http://'. This request has been blocked; the content must be served over HTTPS.
+
+git地址
+https://github.com/springdoc/springdoc-openapi/issues/118
+using https #118
+
+@Bean
+public OpenAPI springShopOpenAPI(
+         @Value("${server.servlet.context-path}") String contextPath
+) {
+    return new OpenAPI()
+            .addServersItem(new Server().url(contextPath))--支持https
+            .info(new Info().title("");
+}

@@ -1,0 +1,22 @@
+# kubectl logs -f idaas-api-v2-66c96c46-whrg4 -n qa
+[0.001s][warning][gc] -Xloggc is deprecated. Will use -Xlog:gc:/logs/gc.log instead.
+Unrecognized VM option 'PrintGCDateStamps'
+Error: Could not create the Java Virtual Machine.
+Error: A fatal exception has occurred. Program will exit.
+
+# kubectl logs -f idaas-api-v2-66c96c46-5x2wd   -n qa
+[0.001s][error][logging] Invalid decorator '/logs/gc.log'.
+Invalid -Xlog option '-Xlog:gc::/logs/gc.log', see error log for details.
+Error: Could not create the Java Virtual Machine.
+Error: A fatal exception has occurred. Program will exit.
+
+0.001s][error][logging] Error opening log file '/logs/gc.log': No such file or directory
+[0.001s][error][logging] Initialization of output 'file=/logs/gc.log' using options '(null)' failed.
+Invalid -Xlog option '-Xlog:gc:/logs/gc.log', see error log for details.
+Error: Could not create the Java Virtual Machine.
+Error: A fatal exception has occurred. Program will exit.
+
+均为JDK高版本不支持的JVM参数
+
+
+
