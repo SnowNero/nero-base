@@ -57,3 +57,15 @@ Caused by: java.lang.ClassCastException: class org.apache.jasper.servlet.JspServ
 
 报错如hive-jdbc包
 Servlet包与SpringBoot3+JDK17不兼容
+
+<dependency>
+    <groupId>org.apache.hive</groupId>
+    <artifactId>hive-jdbc</artifactId>
+    <version>4.0.0-alpha-2</version>
+    <exclusions>
+        <exclusion>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-runner</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
