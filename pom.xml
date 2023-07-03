@@ -224,6 +224,27 @@
             <artifactId>thumbnailator</artifactId>
             <version>0.4.8</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.openjdk.jol</groupId>
+            <artifactId>jol-core</artifactId>
+            <version>0.16</version>
+        </dependency>
+
+        <!--  jdk11 jaxb模块引用 start  -->
+        <!--JDK9以后的版本，模块化的概念去除了JAXB（默认没有加载），需做接入声明。-->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+
+        <!--  jdk11 jaxb模块引用 end  -->
     </dependencies>
 
 </project>
